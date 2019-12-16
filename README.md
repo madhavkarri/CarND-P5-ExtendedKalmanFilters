@@ -153,6 +153,7 @@ Finally,
 The remainder of `main.cpp` outputs the following results to the simulator:
 - estimation position
 - calculated RMSE
+
 `main.cpp` calls a function to calculate root mean squared error:
 ```
 // compute the accuracy (RMSE)
