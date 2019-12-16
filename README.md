@@ -99,3 +99,10 @@ How files relate to each other and a brief overview of code execution flow:
 - `Main.cpp` reads in the data and sends a sensor measurement to `FusionEKF.cpp`
 - `FusionEKF.cpp` takes the sensor data and initializes variables and updates variables. The Kalman filter equations are not in this file. `FusionEKF.cpp` has a variable called `ekf_`, which is an instance of a `KalmanFilter` class. The `ekf_` holds the matrix and vector values. In addition, use the `ekf_` instance to call the predict and update equations.
 - The `KalmanFilter` class is defined in `kalman_filter.cpp` and `kalman_filter.h`. Modify only `kalman_filter.cpp`, which contains functions for the prediction and update steps.
+
+#
+`main.cpp`
+
+The simulator is a client, and the c++ program is a web server.
+
+`main.cpp` reads in the sensor data. `main.cpp` reads in sensor data line by line from the client and stores the data into a measurement object. Measurement object passes the data to the Kalman filter for processing. In addition, a ground truth and an estimation lists are used for RMSE tracking.
