@@ -73,6 +73,12 @@ File Structure
 Overview of a Kalman Filter: Initialize, Predict, Update
 
 Three main steps for programming a Kalman filter:
-- Initialize Kalman filter variables
-- Predict object location/position after a time step of Δt
-- Update object location/position based on sensor measurements
+- `Initialize` Kalman filter variables
+- `Predict` object location/position after a time step of Δt
+- `Update` object location/position based on sensor measurements
+
+The prediction and update steps are called recursively in a loop
+
+To measure how well Kalman filter performs, `RMSE` is calculated by comparing Kalman filter results with the ground truth.
+
+The three steps (initialize, predict, update) plus calculating RMSE encapsulate the entire extended Kalman filter project.
