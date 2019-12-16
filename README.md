@@ -217,4 +217,55 @@ In `FusionEKF.cpp`, implemented sensor fusion. In this file, initialized variabl
 Every time `main.cpp` calls `fusionEKF.ProcessMeasurement(measurement_pack_list[k])`, the code in `FusionEKF.cpp` will run. - If this is the first measurement, the Kalman filter will try to initialize the object's location with the sensor measurement.
 
 `Initializing the Kalman Filter in FusionEKF.cpp`
+```
+void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
+  /**
+   * Initialization
+   */
+  if (!is_initialized_) {
+    /**
+     * TODO: Initialize the state ekf_.x_ with the first measurement.
+     * TODO: Create the covariance matrix.
+     * You'll need to convert radar from polar to cartesian coordinates.
+     */
+
+    // first measurement
+    cout << "EKF: " << endl;
+    ekf_.x_ = VectorXd(4);
+    ekf_.x_ << 1, 1, 1, 1;
+
+    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+      // TODO: Convert radar from polar to cartesian coordinates 
+      //         and initialize state.
+      double rho = measurement_pack.raw_measurements_[0]; // range
+      double phi = measurement_pack.raw_measurements_[1]; // bearing
+      double rho_dot = measurement_pack.raw_measurements_[2]; // range rate
+      // convert from polar to cartesian, px
+      float x = rho * cos(phi);
+      // check value of x to avoid division by zero in Jacobian
+      if ( x < 0.0001 ) {x = 0.0001;}
+      // convert from polar to cartesian, py
+      float y =  rho * sin(phi);
+      // check value of y to avoid division by zero in Jacobian
+      if ( y < 0.0001  ) {y = 0.0001;}
+      // convert from polar to cartesian, vx
+      float vx = rho_dot * cos(phi);
+      // convert from polar to cartesian, vy      
+      float vy = rho_dot * sin(phi);
+      ekf_.x_ << x, y, vx , vy;
+     }
+    else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
+      // TODO: Initialize state.
+      // set the state with the initial location and zero velocity
+      ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
+    }
+
+    previous_timestamp_ = measurement_pack.timestamp_;
+    
+    // done initializing, no need to predict or update
+    is_initialized_ = true;
+    return;
+  }
+
+```
 
