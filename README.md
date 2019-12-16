@@ -48,15 +48,14 @@ Reading in the Data
 A wrapper code was provided to read in and parse the data. This code is in the main.cpp file. The main.cpp file creates instances of a MeasurementPackage.
 
 Inside 'main.cpp', wrapper code would be something similar to as shown below:
-`MeasurementPackage meas_package;
 
+```
+MeasurementPackage meas_package;
 meas_package.sensor_type_ = MeasurementPackage::LASER;
-
 meas_package.raw_measurements_ = VectorXd(2);
-
 meas_package.raw_measurements_ << px, py;
-
-meas_package.timestamp_ = timestamp;`
+meas_package.timestamp_ = timestamp;
+```
 
 and
 
