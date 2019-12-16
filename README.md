@@ -10,6 +10,11 @@ Implement an Extened Kalman Filter in C++. Using simulated lidar and radar measu
 #
 ### The Project
 
+[//]: # (Image References)
+
+[image1]: ./Writeup_IV/DataFile_ScreenShot.png "DataFile_ScreenShot"
+[image2]: ./Writeup_IV/.png ""
+
 #
 Data File for EKF project
 
@@ -23,7 +28,7 @@ A screenshot of the first data file:
 
 The simulator will be using this data file, and feed `main.cpp` values from it one line at a time.
 
-
+![][image1]
 
 Each row represents a sensor measurement, where the first column lists source of measurement: radar (R) or lidar (L).
 
@@ -39,10 +44,6 @@ Ignore yaw and yaw rate ground truth values.
 
 Reading in the Data
 
-[//]: # (Image References)
-
-[image1]: ./Writeup_IV/PD-Controller.png "PD-Controller"
-[image2]: ./Writeup_IV/PID-Controller.png "PID-Controller"
 
 #
 ### Files Submitted
