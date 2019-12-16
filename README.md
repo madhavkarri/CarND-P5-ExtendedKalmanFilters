@@ -66,3 +66,13 @@ gt_values(3) = vy_gt;
 ground_truth.push_back(gt_values);
 ```
 The code reads in the data file line by line. The measurement data for each line gets pushed onto a `measurement_pack_list`. The ground truth `[p_x, p_y, v_x, v_y]` for each line in the data file gets pushed onto `ground_truth` so RMSE can be calculated later from `tools.cpp`.
+
+#
+File Structure
+
+Overview of a Kalman Filter: Initialize, Predict, Update
+
+Three main steps for programming a Kalman filter:
+- Initialize Kalman filter variables
+- Predict object location/position after a time step of Δt
+- Update object location/position based on sensor measurements
