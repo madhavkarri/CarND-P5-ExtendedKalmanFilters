@@ -1,20 +1,42 @@
 # **Self-Driving Car**
-# **Project: PID Controller**
+# **Project: Extended Kalmanm Filter**
 
 ## MK
 
 Overview
 
-Implement a Proportional-Integral-Derivative (PID) controller in C++ to maneuver the vehicle/car around a race track. The car and race track simulator provides cross-track-error (CTE) and velocity (mph) to compute steering angle correction. Corrected steering angle maintains the car stay inside of the track lane.
+Implement an Extened Kalman Filter in C++. Using simulated lidar and radar measurements of the bicycle that travels around the car, track the bicycle's position and velocity using Kalman filter, lidar measurements, and radar measurements.
+
+### The Project
 
 #
-The Project
+Data File for EKF project
 
-The goals/steps for this project:
-* Build a PID controller and tune the PID hyperparameters
-* Test the tuned PID controller on the vehicle/race-track simulator
-* Vehicle must successfully drive a lap around the track
-* There is no minimum vehicle speed criteria. However, maximize vehicle speed by tuning the PID parameters
+Explanation of the Data File
+
+The github repo contains one data file:
+
+- `obj_pose-laser-radar-synthetic-input.txt`
+
+A screenshot of the first data file:
+
+The simulator will be using this data file, and feed `main.cpp` values from it one line at a time.
+
+
+
+Each row represents a sensor measurement, where the first column lists source of measurement: radar (R) or lidar (L).
+
+For a row containing radar data, the columns are: `sensor_type`, `rho_measured`, `phi_measured`, `rhodot_measured`, `timestamp`, `x_groundtruth`, `y_groundtruth`, `vx_groundtruth`, `vy_groundtruth`, `yaw_groundtruth`, `yawrate_groundtruth`.
+
+For a row containing lidar data, the columns are: `sensor_type`, `x_measured`, `y_measured`, `timestamp`, `x_groundtruth`, `y_groundtruth`, `vx_groundtruth`, `vy_groundtruth`, `yaw_groundtruth`, `yawrate_groundtruth`.
+
+Whereas radar has three measurements (rho, phi, rhodot), lidar has two measurements (x, y).
+
+Use measurement values and timestamp inside Kalman filter algorithm. Groundtruth, which represents the actual path the bicycle took, is for calculating `root mean squared error`.
+
+Ignore yaw and yaw rate ground truth values.
+
+Reading in the Data
 
 [//]: # (Image References)
 
