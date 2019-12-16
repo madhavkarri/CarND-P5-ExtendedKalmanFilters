@@ -171,3 +171,50 @@ In `FusionEKF.cpp`, implemented sensor fusion. In this file, initialized variabl
 - Initialized the Kalman filter position vector with the first sensor measurements
 - Modified the F and Q matrices prior to the prediction step based on the elapsed time between measurements
 - Call the update step based on whether the sensor measurement was from lidar or radar. As the update step for lidar and radar differ slightly, there are different set of functions for updating lidar and radar.
+
+`Initializing Variables in FusionEKF.cpp`
+
+```
+/**
+* TODO: Finish initializing the FusionEKF.
+* TODO: Set the process and measurement noises
+*/
+
+  // state covariance matrix P
+  ekf_.P_ = MatrixXd(4, 4);    
+  ekf_.P_ << 1.0, 0,   0,      0,
+             0,   1.0, 0,      0,
+             0,   0,   1000.0, 0,
+             0,   0,   0,      1000.0;
+  
+  //measurement covariance matrix - laser
+  R_laser_ = MatrixXd(2, 2);  
+  R_laser_ << 0.0225, 0,
+              0, 0.0225;
+
+  //measurement covariance matrix - radar
+  R_radar_ = MatrixXd(3, 3);  
+  R_radar_ << 0.09, 0, 0,
+              0, 0.0009, 0,
+              0, 0, 0.09;
+
+  // measurement matrix
+  H_laser_ = MatrixXd(2, 4);  
+  H_laser_ << 1.0, 0,   0, 0,
+              0,   1.0, 0, 0;
+  
+  // the initial transition matrix F_
+  ekf_.F_ = MatrixXd(4, 4);
+  ekf_.F_ << 1, 0, 1, 0,
+            0, 1, 0, 1,
+            0, 0, 1, 0,
+            0, 0, 0, 1;
+  
+  // initializing Jacobian
+  Hj_ = MatrixXd(3, 4);
+
+```
+Every time `main.cpp` calls `fusionEKF.ProcessMeasurement(measurement_pack_list[k])`, the code in `FusionEKF.cpp` will run. - If this is the first measurement, the Kalman filter will try to initialize the object's location with the sensor measurement.
+
+`Initializing the Kalman Filter in FusionEKF.cpp`
+
