@@ -338,6 +338,7 @@ Once the Kalman filter gets initialized, the next iterations of the for loop wil
 ```
 In `FusionEKF.cpp`, references were made to a variable called ekf_. The `ekf_` variable is an instance of the `KalmanFilter` class. Used `ekf_` to store Kalman filter variables `(x, P, F, H, R, Q)` and call the predict and update functions.
 
+#
 `KalmanFilter Class`
 
 `kalman_filter.h` defines the `KalmanFilter` class containing the `x vector` as well as the `P, F, Q, H` and `R` matrices. The KalmanFilter class also contains functions for the prediction step as well as the Kalman filter update step (lidar) and extended Kalman filter update step (radar).
@@ -438,6 +439,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 ```
 
+#
 `Tools.cpp`
 
 This file is relatively straight forward. Implemented functions to calculate root mean squared error and the Jacobian matrix:
