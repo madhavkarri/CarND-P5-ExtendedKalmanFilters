@@ -1,5 +1,5 @@
 # **Self-Driving Car**
-# **Project: Extended Kalmanm Filter**
+# **Project: Extended Kalman Filter**
 
 ## MK
 
