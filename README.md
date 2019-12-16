@@ -336,3 +336,12 @@ Once the Kalman filter gets initialized, the next iterations of the for loop wil
   }
 
 ```
+In `FusionEKF.cpp`, references were made to a variable called ekf_. The `ekf_` variable is an instance of the `KalmanFilter` class. Used `ekf_` to store Kalman filter variables `(x, P, F, H, R, Q)` and call the predict and update functions.
+
+`KalmanFilter Class`
+
+`kalman_filter.h` defines the `KalmanFilter` class containing the `x vector` as well as the `P, F, Q, H` and `R` matrices. The KalmanFilter class also contains functions for the prediction step as well as the Kalman filter update step (lidar) and extended Kalman filter update step (radar).
+
+You will need to add your code to kalman_filter.cpp to implement the prediction and update equations. You do not need to modify 'kalman_filter.h'.
+
+Because lidar uses linear equations, the update step will use the basic Kalman filter equations. On the other hand, radar uses non-linear equations, so the update step involves linearizing the equations with the Jacobian matrix. The Update function will use the standard Kalman filter equations. The UpdateEKF will use the extended Kalman filter equations:
