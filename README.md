@@ -49,19 +49,29 @@ A wrapper code was provided to read in and parse the data. This code is in the m
 
 Inside 'main.cpp', wrapper code would be something similar to as shown below:
 `MeasurementPackage meas_package;
+
 meas_package.sensor_type_ = MeasurementPackage::LASER;
+
 meas_package.raw_measurements_ = VectorXd(2);
+
 meas_package.raw_measurements_ << px, py;
+
 meas_package.timestamp_ = timestamp;`
 
 and
 
 `vector<VectorXd> ground_truth;
+
 VectorXd gt_values(4);
+
 gt_values(0) = x_gt;
+
 gt_values(1) = y_gt; 
+
 gt_values(2) = vx_gt;
+
 gt_values(3) = vy_gt;
+
 ground_truth.push_back(gt_values);`
 
 The code reads in the data file line by line. The measurement data for each line gets pushed onto a `measurement_pack_list`. The ground truth [p_x, p_y, v_x, v_y] for each line in the data file gets pushed onto `ground_truth` so RMSE can be calculated later from `tools.cpp`.
