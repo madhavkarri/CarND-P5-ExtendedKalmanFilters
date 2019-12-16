@@ -82,3 +82,12 @@ The prediction and update steps are called recursively in a loop
 To measure how well Kalman filter performs, `RMSE` is calculated by comparing Kalman filter results with the ground truth.
 
 The three steps (initialize, predict, update) plus calculating RMSE encapsulate the entire extended Kalman filter project.
+
+#
+Files Submitted
+
+Project includes the following set of files:
+- `main.cpp` - communicates with Simulator to receive data measurements, calls a function to run Kalman filter, calls a function to calculate RMSE
+- `FusionEKF.cpp` - initializes Kalman filter, calls the predict function, calls the update function
+- `kalman_filter.cpp` - defines the predict function, the update function for lidar, and the update function for radar
+- `tools.cpp` - function to calculate RMSE and the Jacobian matrix
