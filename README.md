@@ -145,3 +145,18 @@ The rest of the arguments in `h.onMessage` are used to set up the server.
   //Call the EKF-based fusion
   fusionEKF.ProcessMeasurement(meas_package); 
 ```
+The code is:
+- Creating an instance of the `FusionEKF` class
+- Receiving measurement data calling the `ProcessMeasurement()` function. `ProcessMeasurement()` is responsible for the initialization of the Kalman filter as well as calling the prediction and update steps of the Kalman filter. Implemented the `ProcessMeasurement()` function in `FusionEKF.cpp`:
+Finally,
+
+The remainder of `main.cpp` outputs the following results to the simulator:
+- estimation position
+- calculated RMSE
+`main.cpp` calls a function to calculate root mean squared error:
+```
+// compute the accuracy (RMSE)
+  Tools tools;
+  cout << "Accuracy - RMSE:" << endl << tools.CalculateRMSE(estimations, ground_truth) << endl;
+```
+Implemented RMSE function in the `tools.cpp` file.
