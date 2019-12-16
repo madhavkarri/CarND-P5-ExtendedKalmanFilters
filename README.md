@@ -5,8 +5,9 @@
 
 Overview
 
-Implement an Extened Kalman Filter in C++. Using simulated lidar and radar measurements of the bicycle that travels around the car, track the bicycle's position and velocity using Kalman filter, lidar measurements, and radar measurements.
+Implement an Extened Kalman Filter in C++. Using simulated lidar and radar measurements of the bicycle, that travels around the car, track the bicycle's position and velocity using Kalman filter, lidar measurements, and radar measurements.
 
+#
 ### The Project
 
 #
