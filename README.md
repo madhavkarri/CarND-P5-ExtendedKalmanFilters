@@ -268,4 +268,71 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   }
 
 ```
+`Predict and Update Steps in FusionEKF.cpp`
 
+Once the Kalman filter gets initialized, the next iterations of the for loop will call the `ProcessMeasurement()` function to do the predict and update steps.
+```
+/**
+   * Prediction
+   */
+
+  /**
+   * TODO: Update the state transition matrix F according to the new elapsed time.
+   * Time is measured in seconds.
+   * TODO: Update the process noise covariance matrix.
+   * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
+   */
+   // compute the time elapsed between the current and previous measurements
+   // dt - expressed in seconds
+   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+   previous_timestamp_ = measurement_pack.timestamp_;
+  
+   // TODO: YOUR CODE HERE
+   float dt_2 = dt * dt;
+   float dt_3 = dt_2 * dt;
+   float dt_4 = dt_3 * dt;
+
+   // Modify the F matrix so that the time is integrated
+   ekf_.F_(0, 2) = dt;
+   ekf_.F_(1, 3) = dt;
+
+   // set the process covariance matrix Q
+   // set the acceleration noise components
+   float noise_ax = 9.0;
+   float noise_ay = 9.0;  
+   ekf_.Q_ = MatrixXd(4, 4);
+   ekf_.Q_ <<  dt_4/4.0*noise_ax,    0,                 dt_3/2.0*noise_ax, 0,
+               0,                    dt_4/4.0*noise_ay, 0,                 dt_3/2.0*noise_ay,
+               dt_3/2.0*noise_ax,    0,                 dt_2*noise_ax,     0,
+               0,                    dt_3/2.0*noise_ay, 0,                 dt_2*noise_ay;
+  
+   // predict
+   ekf_.Predict();
+  
+
+  /**
+   * Update
+   */
+
+  /**
+   * TODO:
+   * - Use the sensor type to perform the update step.
+   * - Update the state and covariance matrices.
+   */
+
+   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+     // TODO: Radar updates
+     ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
+     ekf_.R_ = R_radar_;
+     // measurement update
+     ekf_.UpdateEKF(measurement_pack.raw_measurements_);
+     } 
+   else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
+     // TODO: Laser updates
+     ekf_.H_ = H_laser_;
+     ekf_.R_ = R_laser_;
+     // measurement update
+     ekf_.Update(measurement_pack.raw_measurements_);
+  }
+
+```
