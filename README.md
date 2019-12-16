@@ -344,7 +344,7 @@ In `FusionEKF.cpp`, references were made to a variable called ekf_. The `ekf_` v
 
 Added code to `kalman_filter.cpp` to implement the prediction and update equations.
 
-Lidar uses linear equations, therefore the update step used the basic Kalman filter equations. Radar uses non-linear equations, and consequently the update step consisted of linearizing the equations with the Jacobian matrix. The Update function will use the standard Kalman filter equations. The UpdateEKF will use the extended Kalman filter equations:
+Lidar uses linear equations, therefore the update step used the basic Kalman filter equations. Radar uses non-linear equations, and consequently the update step consisted of linearizing the equations with the Jacobian matrix. The `Update` function will use the standard Kalman filter equations. The `UpdateEKF` will use the extended Kalman filter equations:
 
 ```
 #include "kalman_filter.h"
