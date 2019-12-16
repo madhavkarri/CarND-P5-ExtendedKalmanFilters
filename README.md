@@ -106,3 +106,42 @@ How files relate to each other and a brief overview of code execution flow:
 The simulator is a client, and the c++ program is a web server.
 
 `main.cpp` reads in the sensor data. `main.cpp` reads in sensor data line by line from the client and stores the data into a measurement object. Measurement object passes the data to the Kalman filter for processing. In addition, a ground truth and an estimation lists are used for RMSE tracking.
+
+`main.cpp` is made up of several functions within main(), these all handle the `uWebsocketIO` communication between the simulator and it's self.
+
+Below is the main protocol that `main.cpp` uses for `uWebSocketIO` in communicating with the simulator.
+```
+INPUT: values provided by the simulator to the c++ program
+
+["sensor_measurement"] => the measurement that the simulator observed (either lidar or radar)
+
+
+OUTPUT: values provided by the c++ program to the simulator
+
+["estimate_x"] <= kalman filter estimated position x
+["estimate_y"] <= kalman filter estimated position y
+["rmse_x"]
+["rmse_y"]
+["rmse_vx"]
+["rmse_vy"]
+```
+All the main code loops in `h.onMessage()`, to have access to intial variables that were created at the beginning of `main()`, pass pointers as arguments into the header of `h.onMessage()`.
+
+For example:
+```
+h.onMessage([&fusionEKF,&tools,&estimations,&ground_truth]
+            (uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, 
+             uWS::OpCode opCode)
+```
+The rest of the arguments in `h.onMessage` are used to set up the server.
+```
+// Create a Fusion EKF instance
+  FusionEKF fusionEKF;
+
+  // used to compute the RMSE later
+  vector<VectorXd> estimations;
+  vector<VectorXd> ground_truth;
+
+  //Call the EKF-based fusion
+  fusionEKF.ProcessMeasurement(meas_package); 
+```
