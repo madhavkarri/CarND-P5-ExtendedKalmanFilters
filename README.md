@@ -160,4 +160,14 @@ The remainder of `main.cpp` outputs the following results to the simulator:
   Tools tools;
   cout << "Accuracy - RMSE:" << endl << tools.CalculateRMSE(estimations, ground_truth) << endl;
 ```
-Implemented RMSE function in the `tools.cpp` file.
+Implemented RMSE function in `tools.cpp` file.
+
+#
+`FusionEKF.cpp`
+
+In `FusionEKF.cpp`, implemented sensor fusion. In this file, initialized variables, initialized Kalman filters, and calling functions that implement the prediction step or update step.
+
+- Initialized variables and matrices (x, F, H_laser, H_jacobian, P, etc.)
+- Initialized the Kalman filter position vector with the first sensor measurements
+- Modified the F and Q matrices prior to the prediction step based on the elapsed time between measurements
+- Call the update step based on whether the sensor measurement was from lidar or radar. As the update step for lidar and radar differ slightly, there are different set of functions for updating lidar and radar.
