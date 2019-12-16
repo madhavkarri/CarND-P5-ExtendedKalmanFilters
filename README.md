@@ -36,9 +36,9 @@ For a row containing radar data, the columns are: `sensor_type`, `rho_measured`,
 
 For a row containing lidar data, the columns are: `sensor_type`, `x_measured`, `y_measured`, `timestamp`, `x_groundtruth`, `y_groundtruth`, `vx_groundtruth`, `vy_groundtruth`, `yaw_groundtruth`, `yawrate_groundtruth`.
 
-Whereas radar has three measurements (rho, phi, rhodot), lidar has two measurements (x, y).
+Whereas radar has three measurements `(rho, phi, rhodot)`, lidar has two measurements `(x, y)`.
 
-Use measurement values and timestamp inside Kalman filter algorithm. Groundtruth, which represents the actual path the bicycle took, is for calculating `root mean squared error`.
+Use measurement values and timestamp inside Kalman filter algorithm. Groundtruth, which represents the actual path the bicycle took, is for calculating `root mean squared error (RMSE)`.
 
 Ignore yaw and yaw rate ground truth values.
 
@@ -47,7 +47,7 @@ Reading in the Data
 
 A wrapper code was provided to read in and parse the data. This code is in the `main.cpp` file. The `main.cpp` file creates instances of a `MeasurementPackage`.
 
-Inside 'main.cpp', wrapper code would be something similar to as shown below:
+Inside `main.cpp`, wrapper code would be something similar to as shown below:
 ```
 MeasurementPackage meas_package;
 meas_package.sensor_type_ = MeasurementPackage::LASER;
